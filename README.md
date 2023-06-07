@@ -13,3 +13,15 @@ pip install -r requirements.txt
 ```bash
 bash launch_final.sh
 ```
+
+## Citation
+
+```bibtex
+@article{wu2023finegrained,
+title={Fine-Grained Human Feedback Gives Better Rewards for Language Model Training},
+author={Zeqiu Wu and Yushi Hu and Weijia Shi and Nouha Dziri and Alane Suhr and Prithviraj Ammanabrolu and Noah A. Smith and Mari Ostendorf and Hannaneh Hajishirzi},
+journal={arXiv preprint arXiv:2306.01693},
+year={2023},
+url={https://arxiv.org/abs/2306.01693},
+}
+```
