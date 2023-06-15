@@ -1,5 +1,7 @@
 # Fine-Grained RLHF
 
+## Note: this repo is still under construction, so many components have not been ready yet! We will launch a initial version in late June.
+
 This repository contains the code for the paper [Fine-Grained Human Feedback Gives Better Rewards for Language Model Training](https://arxiv.org/abs/2306.01693).
 
 ## Installation
