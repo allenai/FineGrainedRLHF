@@ -11,5 +11,6 @@ pip install -r requirements.txt
 
 ## Running the code
 ```bash
+cd FRL
 bash launch_final.sh
 ```
