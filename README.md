@@ -10,11 +10,18 @@ This repository contains the code for the paper [Fine-Grained Human Feedback Giv
 pip install -r requirements.txt
 ```
 
+## Usage
+Customize rewards and evaluation metrics for each task in `reward.py`
 
-## Running the code
+Dataset is customized in `train_baseline.py` and `train_finegrained.py`
+
+Specify reward model path in yml files
+
+## Run
+
 ```bash
-cd FRL
-bash launch_final.sh
+bash train_finegrained.sh
+bash train_baseline.sh
 ```
 
 ## Citation

@@ -1,8 +1,0 @@
-torch
-accelerate
-transformers
-spacy
-tqdm
-wandb
-rouge-score
-evaluate
