@@ -1,10 +1,7 @@
 set -e
 
-n_gpus=2
-
-
 # train reward model for F-ERR_sentence
-torchrun --nproc_per_node 2 --standalone --nnodes=1 ./reward_modeling/run_fg_rm.py \
+torchrun --nproc_per_node 1 --standalone --nnodes=1 ./reward_modeling/run_fg_rm.py \
                 --model_name_or_path allenai/longformer-base-4096 \
                 --train_file ./tasks/qa_feedback/data/F-ERR_sentence/train.json \
                 --validation_file ./tasks/qa_feedback/data/F-ERR_sentence/dev.json \
@@ -15,8 +12,8 @@ torchrun --nproc_per_node 2 --standalone --nnodes=1 ./reward_modeling/run_fg_rm.
                 --do_predict \
                 --bf16 \
                 --num_train_epochs 50 \
-                --per_device_train_batch_size 12 \
-                --per_device_eval_batch_size 12 \
+                --per_device_train_batch_size 24 \
+                --per_device_eval_batch_size 24 \
                 --evaluation_strategy epoch \
                 --logging_strategy epoch \
                 --save_strategy epoch \

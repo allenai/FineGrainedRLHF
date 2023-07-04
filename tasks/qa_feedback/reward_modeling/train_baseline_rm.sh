@@ -1,9 +1,8 @@
 set -e
 
-n_gpus=2
 
 # train reward model for baseline
-torchrun --nproc_per_node 4 --standalone --nnodes=1 ./reward_modeling/run_pref_rm.py \
+torchrun --nproc_per_node 2 --standalone --nnodes=1 ./reward_modeling/run_pref_rm.py \
                 --model_name_or_path allenai/longformer-base-4096 \
                 --train_file ./tasks/qa_feedback/data/train_feedback.json \
                 --validation_file ./tasks/qa_feedback/data/dev_feedback.json \
@@ -13,8 +12,8 @@ torchrun --nproc_per_node 4 --standalone --nnodes=1 ./reward_modeling/run_pref_r
                 --do_eval \
                 --bf16 \
                 --max_steps 6000 \
-                --per_device_train_batch_size 6 \
-                --per_device_eval_batch_size 6 \
+                --per_device_train_batch_size 12 \
+                --per_device_eval_batch_size 12 \
                 --eval_steps 200 \
                 --evaluation_strategy steps \
                 --logging_steps 200 \

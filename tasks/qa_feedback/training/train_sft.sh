@@ -1,4 +1,4 @@
-torchrun --nproc_per_node 2 --standalone --nnodes=1 ./sft/run_sft.py \
+torchrun --nproc_per_node 1 --standalone --nnodes=1 ./sft/run_sft.py \
     --model_name_or_path t5-large \
     --do_train \
     --do_eval \
@@ -10,8 +10,8 @@ torchrun --nproc_per_node 2 --standalone --nnodes=1 ./sft/run_sft.py \
     --validation_file ./tasks/qa_feedback/data/dev.json \
     --output_dir ./tasks/qa_feedback/model_outputs/t5-large-1k-train \
     --overwrite_output_dir \
-    --per_device_train_batch_size=2 \
-    --per_device_eval_batch_size=64 \
+    --per_device_train_batch_size=4 \
+    --per_device_eval_batch_size=128 \
     --predict_with_generate \
     --generation_max_length 200 \
     --save_total_limit 2 \
@@ -22,7 +22,7 @@ torchrun --nproc_per_node 2 --standalone --nnodes=1 ./sft/run_sft.py \
 
 # Uncomment the following to train on full training dataset
 
-# torchrun --nproc_per_node 2 --standalone --nnodes=1 ./sft/run_sft.py \
+# torchrun --nproc_per_node 1 --standalone --nnodes=1 ./sft/run_sft.py \
 #     --model_name_or_path t5-large \
 #     --do_train \
 #     --do_eval \
@@ -34,8 +34,8 @@ torchrun --nproc_per_node 2 --standalone --nnodes=1 ./sft/run_sft.py \
 #     --validation_file ./tasks/qa_feedback/data/dev.json \
 #     --output_dir ./tasks/qa_feedback/model_outputs/t5-large-full-train \
 #     --overwrite_output_dir \
-#     --per_device_train_batch_size=2 \
-#     --per_device_eval_batch_size=64 \
+#     --per_device_train_batch_size=4 \
+#     --per_device_eval_batch_size=128 \
 #     --predict_with_generate \
 #     --generation_max_length 200 \
 #     --save_total_limit 2 \

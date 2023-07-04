@@ -50,8 +50,8 @@ ppo:
 train:
   total_episodes: 80000
   eval_interval: 50
-  sampling_batch_size_per_card: 2
-  training_batch_size_per_card: 1
+  sampling_batch_size_per_card: 8
+  training_batch_size_per_card: 4
   lr: 0.00001
   n_warmup_steps: 100
   n_ppo_epoch_per_rollout: 4
@@ -64,7 +64,7 @@ train:
 logging:
   run_name: finegrained
   wandb_log: True
-  wandb_entity: your-wandb-usename
+  wandb_entity: your-wandb-username
   wandb_project: RLHF
   log_interval: 1
   save_dir: tasks/qa_feedback/model_outputs/fine_grained
