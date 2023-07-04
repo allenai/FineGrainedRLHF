@@ -1,0 +1,11 @@
+__pycache__/
+*/__pycache__/
+tasks/qa_feedback/*/__pycache__/
+
+*.egg-info/
+wandb/
+
+tasks/qa_feedback/data/COMP_sequence
+tasks/qa_feedback/data/F-ERR_sentence
+tasks/qa_feedback/data/NF-ERR_subsentence
+tasks/qa_feedback/model_outputs
