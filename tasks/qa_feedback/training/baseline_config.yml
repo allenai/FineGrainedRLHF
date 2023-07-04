@@ -1,0 +1,62 @@
+model:
+  policy_model:
+    ckpt: ./tasks/qa_feedback/model_outputs/t5-large-1k-train
+    input_padding_side: right
+    train_generation_kwargs:
+      do_sample: True
+      top_k: 20
+      top_p: null
+      temperature: 0.7
+    eval_generation_kwargs:
+      do_sample: False
+      num_beams: 1
+  value_model:
+    ckpt: t5-base
+    freeze_value_model: False
+    policy_value_sharing: False
+  
+
+reward:
+  baseline_model:
+    ckpt: ./tasks/qa_feedback/model_outputs/baseline_rm
+    mean: 0.9224057369138402
+    std: 1.5605590864042451
+    bias: 0.0
+    scale: 1.0
+
+env:
+  max_input_len: 1024
+  max_generated_len: 200
+  train_num_samples_per_input: 4
+
+ppo:
+  kl_coef: 0.2
+  lam: 0.99
+  gamma: 1.0
+  pg_coef: 1.0
+  vf_coef: 1.0
+  cliprange: 0.2
+  cliprange_value: 0.2
+  whiten_rewards: True
+
+train:
+  total_episodes: 80000
+  eval_interval: 50
+  sampling_batch_size_per_card: 2
+  training_batch_size_per_card: 1
+  lr: 0.00001
+  n_warmup_steps: 100
+  n_ppo_epoch_per_rollout: 4
+  kl_threshold: 10.0
+  clip_grad: False
+  max_grad_norm: 0.5
+  seed: 42
+  cuda_deterministic: True
+
+logging:
+  run_name: baseline
+  wandb_log: True
+  wandb_entity: your-wandb-usename
+  wandb_project: RLHF
+  log_interval: 1
+  save_dir: tasks/qa_feedback/model_outputs/baseline

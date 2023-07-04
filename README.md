@@ -1,14 +1,20 @@
-# Fine-Grained RLHF
+# fgrlhf
 
-## Note: this repo is still under construction, so many components have not been ready yet! We will launch a initial version in late June.
-
-This repository contains the code for the paper [Fine-Grained Human Feedback Gives Better Rewards for Language Model Training](https://arxiv.org/abs/2306.01693).
-
-## Installation
+install requirements
 
 ```bash
-pip install -r requirements.txt
+# create conda environment with python 3.9
+conda create --name py39 python=3.9
+conda activate py39 
+
+# install packages
+git clone https://github.com/allenai/FineGrainedRLHF.git
+cd FineGrainedRLHF
+pip install -e .
+python -m spacy download en_core_web_sm
 ```
+
+### Notice: should move all the py and yml files in the examples/qa_feedback folder. Now haven't finalized path etc. yet so I haven't done that
 
 ## Usage
 Customize rewards and evaluation metrics for each task in `reward.py`
@@ -22,16 +28,4 @@ Specify reward model path in yml files
 ```bash
 bash train_finegrained.sh
 bash train_baseline.sh
-```
-
-## Citation
-
-```bibtex
-@article{wu2023finegrained,
-title={Fine-Grained Human Feedback Gives Better Rewards for Language Model Training},
-author={Zeqiu Wu and Yushi Hu and Weijia Shi and Nouha Dziri and Alane Suhr and Prithviraj Ammanabrolu and Noah A. Smith and Mari Ostendorf and Hannaneh Hajishirzi},
-journal={arXiv preprint arXiv:2306.01693},
-year={2023},
-url={https://arxiv.org/abs/2306.01693},
-}
 ```
