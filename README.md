@@ -1,31 +1,113 @@
-# fgrlhf
+<p align="center">
+  <img src="fgrlhf_logo.png" width=512px>
+</p>
 
-install requirements
+<h1 align="center"> Fine-Grained RLHF </h1>
 
+This repo provides data, code and models for the paper: [Fine-Grained Human Feedback Gives Better Rewards for Language Model Training](https://arxiv.org/pdf/2306.01693.pdf).
+
+## Content
+1. [Set Up](#set-up)
+2. [Tasks and Data](#tasks-and-data)
+    * [Long-form QA](#long-form-qa)
+    * [Detoxification](#detoxification)
+3. [SFT Training](#sft-training)
+4. [Reward Modeling](#reward-modeling)
+5. [RLHF Training](#rlhf-training)
+    * [Holistic RLHF](holistic-rlhf)
+    * [Fine-Grained RLHF](fine-grained-rlhf)
+6. [Our Trained Models](our-trained-models)
+
+
+## Set Up
 ```bash
-# create conda environment with python 3.9
+# create a conda environment with python 3.9
 conda create --name py39 python=3.9
 conda activate py39 
 
-# install packages
+# git clone and install packages
 git clone https://github.com/allenai/FineGrainedRLHF.git
 cd FineGrainedRLHF
 pip install -e .
 python -m spacy download en_core_web_sm
 ```
 
-### Notice: should move all the py and yml files in the examples/qa_feedback folder. Now haven't finalized path etc. yet so I haven't done that
+## Tasks and Data
 
-## Usage
-Customize rewards and evaluation metrics for each task in `reward.py`
+### Long-form QA
+Long-form QA requires an LM to generate a textual response to a question with comprehensive answers and explanations. We conduct experiments on our constructed data, qa-feedback, with collected preference-based and fine-grained human feedback. Please see the data under `./tasks/qa_feedback/data`.
 
-Dataset is customized in `train_baseline.py` and `train_finegrained.py`
+### Detoxification
+The task of detoxification aims to reduce the toxicity in the model generation y when given a prompt x. We conduct experiments on [RealToxicityPrompts](https://allenai.org/data/real-toxicity-prompts).
 
-Specify reward model path in yml files
+## SFT Training
+All our experiments reported in the paper were run on 80G A100 GPUs.
 
-## Run
+For qa-feedback, we initialize the policy model with supervised finetuning on 1K training examples, by running the following command. The trained model is saved under `./tasks/qa_feedback/model_outputs/t5-large-1k-train`.
 
 ```bash
-bash train_finegrained.sh
-bash train_baseline.sh
+bash tasks/qa_feedback/training/train_sft.sh
+```
+
+We do not do supervised finetuning for the detoxification task and simply use GPT-2 as the initial policy model.
+
+## Reward Modeling
+For qa-feedback, we train three fine-grained reward models R1, R2 and R3 that correspond to (1) irrelevance, repetition, and incoherence error and (2) incorrect or unverifiable facts and (3) information completeness:
+
+```bash
+# prepare RM training data, all data saved under ./tasks/qa_feedback/data
+bash tasks/qa_feedback/reward_modeling/create_rm_train_files.sh
+
+# train R1, saved under ./tasks/qa_feedback/model_outputs/rel_rm
+bash tasks/qa_feedback/reward_modeling/train_rel_rm.sh
+
+# train R2, saved under ./tasks/qa_feedback/model_outputs/fact_rm
+bash tasks/qa_feedback/reward_modeling/train_fact_rm.sh
+
+# train R3, saved under ./tasks/qa_feedback/model_outputs/comp_rm
+bash tasks/qa_feedback/reward_modeling/train_comp_rm.sh
+```
+
+To train the preference-based reward model:
+
+```bash
+bash tasks/qa_feedback/reward_modeling/train_baseline_rm.sh
+```
+
+For detoxification, as explained in the paper, we use [PERSPECTIVE](https://github.com/conversationai/perspectiveapi), an off-the-shelf toxicity API as our reward model.
+
+## RLHF Training
+We provide training scripts to run both holistic and fine-grained RLHF. Now we only provide the scripts for qa-feedback, and will add those for the detoxification task soon. 
+
+You can find the hyperparameters in `tasks/{task_name}/training/baseline_config.yml` and `tasks/{task_name}/training/fine_grained_config.yml` and change them accordingly. For example, you may want to change `wandb_entity` as your own wandb username. 
+
+You also want to change the `mean` and `std` values for sequence-level reward models (preference and info completeness) in each yml file, which stand for the mean and average reward scores on the training data from the reward model. You can find the values from the `mean_std.txt` file under `./tasks/qa_feedback/model_outputs/comp_rm` or `./tasks/qa_feedback/model_outputs/baseline_rm`. The current values are from our own trained reward models.
+
+### Holistic RLHF
+
+For qa-feedback:
+```bash
+bash tasks/qa_feedback/training/train_baseline.sh
+```
+
+### Fine-Grained RLHF
+
+For qa-feedback:
+```bash
+bash tasks/qa_feedback/training/train_finegrained.sh
+```
+
+## Our Trained Models
+
+
+## Citation
+```
+@misc{wu2023finegrained,
+      title={Fine-Grained Human Feedback Gives Better Rewards for Language Model Training}, 
+      author={Zeqiu Wu and Yushi Hu and Weijia Shi and Nouha Dziri and Alane Suhr and Prithviraj Ammanabrolu and Noah A. Smith and Mari Ostendorf and Hannaneh Hajishirzi},
+      year={2023},
+      eprint={2306.01693},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+}
 ```
