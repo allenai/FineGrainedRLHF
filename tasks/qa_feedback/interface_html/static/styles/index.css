@@ -1,0 +1,157 @@
+body {
+  margin:0;
+  font-family: Georgia, serif;
+  font-size: 11pt;
+}
+#instruction-header {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgba(0, 0, 0, 0);
+  display: inline-block;
+  font-size: 150%;
+  text-align: center;
+}
+#instruction-body span.q {
+  background: #e3e3e3;
+}
+.hl {
+  background: #ffeda0;
+  font-size: 17px;
+}
+.hls {
+  background: #ffeda0;
+  font-size: 15px;
+}
+#instruction-body span.warn {
+  color: #e63232;
+}
+.panel-heading {
+  background-color: #d3d3d3;
+}
+.panel-body {
+  background-color: #FDFDFD;
+  margin-bottom: 15px;
+}
+.container-fluid {
+  padding: 0;
+}
+.snippet {
+  border: 0;
+  background-color: white;
+  text-align: left;
+  height: 23px;
+  padding-top: 0;
+  padding-bottom: 0;
+  overflow: hidden;
+}
+.hyperlink {
+  border: 0;
+  background-color: white;
+  text-align: left;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 2px;
+  padding-right: 2px;
+  font-size: 8pt;
+}
+
+#navbar {
+  overflow: hidden;
+  background-color: #d3d3d3;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+}
+#narbar h2 {
+  margin: 30px;
+  font-weight: bolder;
+}
+#navbar p {
+  margin-bottom: 5px;
+}
+#container {
+  padding: 16px;
+}
+.imgContainer {
+  text-align: center;
+}
+.show-hide-btn {
+  border: .1px solid;
+  border-radius: 4px;
+  width: 110px;
+}
+.reset-btn {
+  height: 20px;
+  padding: 0;
+  margin-bottom: 10px;
+  font-size: 9pt;
+}
+.show-evidence-button {
+  height: 20px;
+  padding: 0;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 10pt;
+}
+.show-hint-button {
+  height: 30px;
+  padding: 0;
+  margin-bottom: 8px;
+  font-size: 10pt;
+}
+.guide-box {
+  margin: 10px;
+  padding: 10px;
+  background-color: #EEEEEE;
+  border-radius: 8px;
+}
+#qual-hits-btn .qual-hits-btn button {
+  background: #046937;
+  border: 0px;
+}
+button {
+  font-size: 80%;
+  border: 0px;
+}
+
+.big-button {
+  font-size: 100%;
+  border: 1px;
+  margin-left: 30px;
+  margin-bottom: 30px;
+}
+img {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  border: 1px lightgrey solid;
+}
+.radio-box-container, .label-container {
+  margin-bottom: 10px;
+}
+.label {
+  font-size: 10pt;
+  width: 20px;
+  clear: right;
+}
+label span{
+  display:inline-block;
+  margin-right: 10px;
+}
+#description-button, #type-description-button {
+  color: #337ab7;
+}
+#description-button:hover, #type-description-button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+#show-description:hover, #hide-description:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+#description, #type-description {
+  margin-left: 40px;
+}
