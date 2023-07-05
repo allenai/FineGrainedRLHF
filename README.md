@@ -17,6 +17,7 @@ This repo provides data, code and models for the paper: [Fine-Grained Human Feed
     * [Holistic RLHF](#holistic-rlhf)
     * [Fine-Grained RLHF](#fine-grained-rlhf)
 6. [Our Trained Models](#our-trained-models)
+7. [Feedback Collection Interfaces](#feedback-collection-interfaces)
 
 
 ## Set Up
@@ -101,6 +102,10 @@ bash tasks/qa_feedback/training/train_finegrained.sh
 
 Please find our trained SFT, reward and RLHF models from [this link](https://drive.google.com/drive/folders/18EBBOlePyh86tsTPNeCiImKkbGqN48A7?usp=sharing). Place the unzipped folders inside the `./task/{task_name}/model_outputs` folder and run the scripts above that depend on these models accordingly. For example, you can run the RLHF experiments directly after downloading and placing our reward model folders.
 
+
+## Feedback Collection Interfaces
+
+We provide html files for feedback collection interfaces of qa-feedback. Please find them under `tasks/qa_feedback/interface_html`. Open `templates/annotation.html` and `templates/comparison.html` in a browser to view the interface for fine-grained and preference feedback collection, respectively.
 
 ## Citation
 ```
