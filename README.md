@@ -99,6 +99,8 @@ bash tasks/qa_feedback/training/train_finegrained.sh
 
 ## Our Trained Models
 
+Please find our trained SFT, reward and RLHF models from [this link](https://drive.google.com/drive/folders/18EBBOlePyh86tsTPNeCiImKkbGqN48A7?usp=sharing). Place the unzipped folders inside the `./task/{task_name}/model_outputs` folder and run the scripts above that depend on these models accordingly. For example, you can run the RLHF experiments directly after downloading and placing our reward model folders.
+
 
 ## Citation
 ```
