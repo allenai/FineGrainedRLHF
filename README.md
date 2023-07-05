@@ -14,9 +14,9 @@ This repo provides data, code and models for the paper: [Fine-Grained Human Feed
 3. [SFT Training](#sft-training)
 4. [Reward Modeling](#reward-modeling)
 5. [RLHF Training](#rlhf-training)
-    * [Holistic RLHF](holistic-rlhf)
-    * [Fine-Grained RLHF](fine-grained-rlhf)
-6. [Our Trained Models](our-trained-models)
+    * [Holistic RLHF](#holistic-rlhf)
+    * [Fine-Grained RLHF](#fine-grained-rlhf)
+6. [Our Trained Models](#our-trained-models)
 
 
 ## Set Up
