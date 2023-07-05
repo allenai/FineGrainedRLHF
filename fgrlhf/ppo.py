@@ -282,11 +282,10 @@ class PPOTrainer:
             if self.args['train']['clip_grad']:
                 self.accelerator.clip_grad_norm_(
                     chain(self.policy_model.model.parameters(),
-                        self.policy_model.linear.parameters()),
-                    self.args['train']['max_grad_norm'])
-                self.accelerator.clip_grad_norm_(
-                    chain(self.value_model.model.parameters(),
-                        self.value_model.linear.parameters()),
+                        self.policy_model.linear.parameters(),
+                        self.value_model.model.parameters(),
+                        self.value_model.linear.parameters()
+                        ),
                     self.args['train']['max_grad_norm'])
                 
             self.optimizer.step()
