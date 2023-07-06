@@ -1,4 +1,5 @@
 from rouge_score import rouge_scorer
+import nltk
 
 scorer = rouge_scorer.RougeScorer(['rougeLsum'], use_stemmer=True)
 
