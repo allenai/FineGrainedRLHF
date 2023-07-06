@@ -24,6 +24,6 @@ def get_rouge_scores(preds, list_of_labels):
         label_scores = [scorer.score(pred, label) for label in labels]
         max_score = max(label_scores, key=lambda x: x['rougeLsum'].fmeasure)
         all_scores.append(max_score)
-
-    all_scores = [round(v * 100, 4) for v in all_scores[0]['rougeLsum']]
+    
+    all_scores = [round(v['rougeLsum'].fmeasure * 100, 4) for v in all_scores]
     return all_scores
