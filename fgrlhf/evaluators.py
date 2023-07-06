@@ -1,7 +1,6 @@
-import evaluate
-import nltk
+from rouge_score import rouge_scorer
 
-metric = evaluate.load("rouge")
+scorer = rouge_scorer.RougeScorer(['rougeLsum'], use_stemmer=True)
 
 def postprocess_text(preds, list_of_labels):
     
@@ -11,11 +10,19 @@ def postprocess_text(preds, list_of_labels):
                       for labels in list_of_labels]
     return preds, list_of_labels
 
-def get_rouge_scores(preds, labels):
 
-    # Some simple post-processing
-    decoded_preds, decoded_labels = postprocess_text(preds, labels)
+def get_rouge_scores(preds, list_of_labels):
 
-    result = metric.compute(predictions=decoded_preds, references=decoded_labels, use_stemmer=True, use_aggregator=False)
-    result = [round(v * 100, 4) for v in result['rougeLsum']]
-    return result
+    # Post-process text
+    preds, list_of_labels = postprocess_text(preds, list_of_labels)
+
+    # Score all predictions
+    all_scores = []
+    for pred, labels in zip(preds, list_of_labels):
+        # We calculate scores for each label, and take the max
+        label_scores = [scorer.score(pred, label) for label in labels]
+        max_score = max(label_scores, key=lambda x: x['rougeLsum'].fmeasure)
+        all_scores.append(max_score)
+
+    all_scores = [round(v * 100, 4) for v in all_scores[0]['rougeLsum']]
+    return all_scores
