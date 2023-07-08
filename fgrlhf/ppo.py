@@ -332,7 +332,7 @@ class PPOTrainer:
                 })
                 
             if this_batch_kl > self.args['train']['kl_threshold']:
-                log.info(f"KL divergence {this_batch_kl} exceeds threshold {self.args['train']['kl_threshold']}")
+                self.log_info(f"KL divergence {this_batch_kl} exceeds threshold {self.args['train']['kl_threshold']}")
                 self.huge_kl_count += 1
                 if self.huge_kl_count >= 5:
                     self.should_early_stop = True
@@ -431,7 +431,7 @@ class PPOTrainer:
                     try:
                         os.remove(f"{self.args['logging']['save_dir']}/ckp_{prev_best_step}.pth")
                     except:
-                        log.warning(f'Cannot remove previous best ckpt!')
+                        self.log_info(f'Cannot remove previous best ckpt!')
                 shutil.copy(f"{self.args['logging']['save_dir']}/last.pth", f"{self.args['logging']['save_dir']}/ckp_{step}.pth")
                 self.log_info(f'Best ckpt updated to [step {step}]')
                 
