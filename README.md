@@ -109,12 +109,10 @@ We provide html files for feedback collection interfaces of qa-feedback. Please 
 
 ## Citation
 ```
-@misc{wu2023finegrained,
-      title={Fine-Grained Human Feedback Gives Better Rewards for Language Model Training}, 
-      author={Zeqiu Wu and Yushi Hu and Weijia Shi and Nouha Dziri and Alane Suhr and Prithviraj Ammanabrolu and Noah A. Smith and Mari Ostendorf and Hannaneh Hajishirzi},
-      year={2023},
-      eprint={2306.01693},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL}
+@article{wu2023fine,
+  title={Fine-Grained Human Feedback Gives Better Rewards for Language Model Training},
+  author={Wu, Zeqiu and Hu, Yushi and Shi, Weijia and Dziri, Nouha and Suhr, Alane and Ammanabrolu, Prithviraj and Smith, Noah A and Ostendorf, Mari and Hajishirzi, Hannaneh},
+  journal={arXiv preprint arXiv:2306.01693},
+  year={2023}
 }
 ```
