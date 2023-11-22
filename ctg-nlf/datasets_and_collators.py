@@ -74,7 +74,7 @@ class PromptCollator(object):
         return input_ids, attention_mask
 
 
-class SequenceDataset(Dataset):
+class SequenceWithFeedbackDataset(Dataset):
     """
     PyTorch Dataset for handling sequences with feedback.
 
@@ -115,7 +115,7 @@ class SequenceDataset(Dataset):
 class SequenceWithFeedbackCollator(object):
     def __init__(self, tokenizer):
         """
-        Initialize the SequenceCollator with a tokenizer.
+        Initialize the SequenceWithFeedbackCollator with a tokenizer.
 
         Args:
             tokenizer: The tokenizer used to process the input sequences.
@@ -124,26 +124,18 @@ class SequenceWithFeedbackCollator(object):
         self.max_source_length = tokenizer.max_input_len
         self.max_target_length = tokenizer.max_generated_len
 
-    # MODIFIED
     def __call__(self, sequences):
         """
-        Collate sequences for language model input, including feedback tokens, padding, and attention masking.
+        Collate sequences for language model input, including feedback, padding, and attention masking.
 
         Args:
             sequences (List[dict]): A list of sequences, each represented as a dictionary with keys 'query', 'response', and 'feedback'.
 
         Returns:
-            torch.Tensor: Padded and tokenized query input IDs with feedback tokens prepended.
-            torch.Tensor: Query input attention mask with feedback tokens accounted for.
+            torch.Tensor: Padded and tokenized query input IDs with feedback prepended (tags "feedback: ", and "input: " added).
+            torch.Tensor: Query input attention mask with feedback accounted for.
             torch.Tensor: Padded and tokenized response input IDs.
             torch.Tensor: Response input attention mask.
-
-        Note:
-            - Control tokens are prepended to each input query in the batch, and padding is added to the left of the sequences.
-            - A separator token is placed between the control tokens and the original tokens.
-            - The 'nlf_tokens' contain natural language tokens associated with different quantiles.
-            - Sequences are padded with the tokenizer's pad_token_id and separated by the tokenizer's sep_token_id.
-            - Attention masks are generated to indicate which tokens to attend to and which are padding.
         """
         queries = [self.tokenizer.feedback_prefix + sequence['feedback'] + " " + self.tokenizer.prompt_prefix + sequence['query'] for sequence in sequences]
         responses = [sequence['response'] for sequence in sequences]

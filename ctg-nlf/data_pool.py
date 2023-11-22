@@ -4,7 +4,6 @@ from collections import defaultdict
 
 
 class DataPool:
-    # DOCUMENTED
     def __init__(self, feedback_types, num_quantiles, num_attributes):
         """
         Initialize a data pool for organizing and managing data into quantiles.
@@ -44,7 +43,6 @@ class DataPool:
             self.score_pool[f"attr_{str(i)}"]
         self.prompt_pool, self.response_pool, self.feedback_pool = [], [], []
 
-    # DOCUMENTED
     def add(self, prompts: List[str], responses: List[str], scores: List[List[float]]):
         """
         Add data to the data pool and organize it into quantiles.
@@ -80,7 +78,6 @@ class DataPool:
             self.feedback_pool = [self.feedback_types[i] for i in quantile_idx] 
             # feedback_pool will be a list of lists, where each element is the feedback associated to a quantile, e..g, ['Very', 'ĠPositive']
 
-    # DOCUMENTED
     def get_data(self):
         """
         Get the data from the data pool.
